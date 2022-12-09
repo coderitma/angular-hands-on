@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { PostInterface } from './interfaces/post-interface';
 
@@ -8,12 +8,16 @@ import { PostInterface } from './interfaces/post-interface';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   posts: PostInterface[];
   baseURL: string = "https://jsonplaceholder.typicode.com";
 
   constructor(private http: HttpClient) {
     this.posts = [];
+  }
+
+  ngOnInit(): void {
+    this.getPost();
   }
 
   private handleError(error: HttpErrorResponse) {
